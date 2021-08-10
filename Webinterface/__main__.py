@@ -58,25 +58,31 @@ def Start():
 
     app.run(host=getFlaskConfig()['ip'], port=getFlaskConfig()['port'],debug=False, threaded=True)
 
-# WARNING: Don't run with debug turned on in production!
-try:
-    config_object = ConfigParser()
-    config_object.read(str(pathlib.Path().absolute())+"/"+"Config.ini")
-    zmqconfig = config_object['ZMQ']
-    socket.connect ("tcp://"+zmqconfig['ip']+":%s" % zmqconfig['port'])
-    # Load all possible configurations
-    config_dict = {
-        'Production': webconfig.ProductionConfig,
-        'Debug'     : webconfig.DebugConfig
-    }
+def main():
+    # WARNING: Don't run with debug turned on in production!
+    try:
+        config_object = ConfigParser()
+        config_object.read(str(pathlib.Path().absolute())+"/"+"Config.ini")
+        zmqconfig = config_object['ZMQ']
+        socket.connect ("tcp://"+zmqconfig['ip']+":%s" % zmqconfig['port'])
+        # Load all possible configurations
+        config_dict = {
+            'Production': webconfig.ProductionConfig,
+            'Debug'     : webconfig.DebugConfig
+        }
 
-    # Load the configuration using the default values
-    app_config =config_dict['Production']
+        # Load the configuration using the default values
+        app_config =config_dict['Production']
 
-except KeyError:
-    exit('Error: Invalid <config_mode>. Expected values [Debug, Production] ')
+    except KeyError:
+        exit('Error: Invalid <config_mode>. Expected values [Debug, Production] ')
 
-app = create_app( app_config ) 
-Migrate(app, db)
+    app = create_app( app_config ) 
+    Migrate(app, db)
 
-app.run(host=getFlaskConfig()['ip'], port=getFlaskConfig()['port'],debug=True, threaded=True)
+    app.run(host=getFlaskConfig()['ip'], port=getFlaskConfig()['port'],debug=True, threaded=True)
+
+
+
+if __name__ == "__main__":
+    main()
