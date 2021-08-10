@@ -60,22 +60,17 @@ def Start():
 
 def main():
     # WARNING: Don't run with debug turned on in production!
-    try:
-        config_object = ConfigParser()
-        config_object.read(str(pathlib.Path().absolute())+"/"+"Config.ini")
-        zmqconfig = config_object['ZMQ']
-        socket.connect ("tcp://"+zmqconfig['ip']+":%s" % zmqconfig['port'])
-        # Load all possible configurations
-        config_dict = {
-            'Production': webconfig.ProductionConfig,
-            'Debug'     : webconfig.DebugConfig
-        }
 
-        # Load the configuration using the default values
-        app_config =config_dict['Production']
+    config_object = ConfigParser()
+    config_object.read(str(pathlib.Path().absolute())+"/"+"Config.ini")
+   
+    config_dict = {
+        'Production': webconfig.ProductionConfig,
+        'Debug'     : webconfig.DebugConfig
+    }
 
-    except KeyError:
-        exit('Error: Invalid <config_mode>. Expected values [Debug, Production] ')
+    # Load the configuration using the default values
+    app_config =config_dict['Debug']
 
     app = create_app( app_config ) 
     Migrate(app, db)

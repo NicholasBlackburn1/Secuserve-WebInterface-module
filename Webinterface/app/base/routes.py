@@ -53,6 +53,7 @@ import logging
 import json
 from flask_wtf.file import FileField
 from configparser import ConfigParser
+from datetime import datetime
 # returns the zmq settings from the config.ini
 
 print( str(pathlib.Path().absolute())+"/"+"Config.ini")
@@ -60,8 +61,7 @@ print( str(pathlib.Path().absolute())+"/"+"Config.ini")
 config_object = ConfigParser()
 config_object.read(str(pathlib.Path().absolute())+"/"+"Config.ini")
 
-logconfig = config_object['LOG']
-zmqconfig = config_object['ZMQ']    
+
 flaskconfig = config_object['FLASK']
 versionconfig = config_object['VERSION']
 settingsconfig = config_object['AMOUNT']
@@ -75,7 +75,7 @@ TODO: add Reading From Config.ini for Configuring ip and port of flask and more!
 '''
 
 logging.basicConfig(
-    filename=logconfig['name'],
+    filename="/mnt/SecuServe/logging/"+"Webserver"+str(datetime.now())+".log",
     level=logging.DEBUG,
     format=f"%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s",
 )
