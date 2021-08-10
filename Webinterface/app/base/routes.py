@@ -57,15 +57,7 @@ from datetime import datetime
 # returns the zmq settings from the config.ini
 
 print( str(pathlib.Path().absolute())+"/"+"Config.ini")
-# Read config.ini file
-config_object = ConfigParser()
-config_object.read(str(pathlib.Path().absolute())+"/"+"Config.ini")
 
-
-flaskconfig = config_object['FLASK']
-versionconfig = config_object['VERSION']
-settingsconfig = config_object['AMOUNT']
-fileconfig = config_object['FILE']
    
 
 
@@ -75,7 +67,7 @@ TODO: add Reading From Config.ini for Configuring ip and port of flask and more!
 '''
 
 logging.basicConfig(
-    filename="/mnt/SecuServe/logging/"+"Webserver"+str(datetime.now())+".log",
+    filename="Webserver"+str(datetime.now())+".log",
     level=logging.DEBUG,
     format=f"%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s",
 )
@@ -245,46 +237,6 @@ def index():
         flasksettings['ip'] = ipaddress
         flasksettings['port'] = port
         
-        #Write changes back to file
-        with open(str(pathlib.Path().absolute())+"/src/web/"+"Config.ini", 'w') as conf:
-            config_object.write(conf)
-        return render_template("settings.html",form = face_from, serverForm= server_form, zmqForm = zmq_form, msg = "updated",version = versionconfig['number'] )
-        
-
-    if "zmqsave" in request.form:
-        
-        ipaddress = request.form['ipaddress']
-        port = request.form['portnumber']
-        print("ZMQ")
-        print(ipaddress)
-        print(port)
-        
-        #Get the configparser object
-        config_object = ConfigParser()
-        config_object.read(str(pathlib.Path().absolute())+"/src/web/"+"Config.ini")
-
-        zmqsettings = config_object['ZMQ']
-        zmqsettings['ip'] = ipaddress
-        zmqsettings['port'] = port
-
-    if "phonesave" in request.form:
-        phone = request.form['phonenumber']
-        usrname = request.form['name']
-        data = {    
-            "name": usrname,
-            "phonenum": phone,
-            }
-
-        #Write changes back to file
-        with open(fileconfig['rootDirPath']+fileconfig['configPath']+fileconfig['PhoneNumberStorage']+"PhoneNumber.json", 'w') as conf:
-            json.dump(data,conf)
-            
-        return render_template("settings.html",form = face_from, serverForm= server_form, zmqForm = zmq_form, phoneForm = phone_form, msg = "addedphone",version = versionconfig['number'] )
-        
-        
-        
-
-    
     return render_template("settings.html",form = face_from, serverForm= server_form, zmqForm = zmq_form,  phoneForm = phone_form, version = versionconfig['number'], port_number= flaskconfig['port'], ip_address= flaskconfig['ip'])
     
 

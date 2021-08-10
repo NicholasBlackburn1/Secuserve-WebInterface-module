@@ -28,7 +28,7 @@ def getFlaskConfig():
 
     # Get the password
     flask = config_object['FLASK']
-    zmqconfig = config_object['ZMQ']
+   
     
     print("https://"+flask['ip']+":"+flask['port'])
 
