@@ -35,6 +35,19 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return str(self.username)
+    
+    
+    class Face(db.Model, UserMixin):
+
+        __tablename__ = 'Face'
+
+        id = Column(Integer, primary_key=True)
+        useruuid = Column(String, unique=True)
+        user = Column(String)
+        group = Column(Integer)
+        image = Column(String, unique=True)
+        imageurl = Column(String, unique=True)
+        phoneNum = Column(String)
 
 
 @login_manager.user_loader
