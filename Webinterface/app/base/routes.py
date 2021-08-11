@@ -4,6 +4,7 @@ This is where I register all the webapps routs in the app
  TODO : add working and neet way of handling all the rounts needed for app
 """
 
+import pathlib
 from flask import jsonify, render_template, redirect, request, url_for
 from flask_login import (
     current_user,
@@ -14,11 +15,14 @@ from flask_login import (
 
 from app import db, login_manager
 from app.base import blueprint
-from app.base.forms import AddFaceForm, LoginForm, CreateAccountForm
+from app.base.forms import AddFaceForm, LoginForm, CreateAccountForm, RemoveFaceForm
 from app.base.models import User, Face
 
 from app.base.util import verify_pass
 from configparser import ConfigParser
+import uuid
+
+import pathlib
 
 # main web app entty point
 @blueprint.route('/')
@@ -119,13 +123,11 @@ def not_found_error(error):
 def internal_error(error):
     return render_template('page-500.html'), 500
 
-
-
-  
-@blueprint.route("/addFace",methods=["GET", "POST"])
-def adduser():
- 
-    face_from = AddFaceForm(request.form)
+@blueprint.route("/settings",methods=["GET", "POST"])
+def settings():
+   
+    remove_face= RemoveFaceForm(request.form)
+    add_face =  AddFaceForm(request.form)
     if "add" in request.form:
        
         # read form data
@@ -172,11 +174,29 @@ def adduser():
         user = Face(**request.form)
         user.image = output_name
         user.imageurl = tempfile_url
-        user.useruuid = str(uuid.uuid1())
+        user.useruuid = str(uuid.uuid())
         user.phonenum = phonenum
         db.session.add(user)
         db.session.commit()
         ##print(image)
 
         
-    return render_template("addFace.html",form = face_from)
+        return render_template("set.html",remove = remove_face,add_user= add_face, msg = "addeduser" )
+
+    if "Remove" in request.form:
+        username = request.form['user']
+        group = request.form['group']
+
+        print(username)
+        print(group)
+
+        remove = Face.query.filter_by(user=username).one()
+        db.session.delete(remove)
+        db.session.commit()
+              
+        return render_template("set.html",remove = remove_face,add_user= add_face, msg = "removedUser" )
+
+    
+    return render_template("set.html",remove = remove_face,add_user= add_face,msg = "None" )
+
+  
