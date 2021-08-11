@@ -24,6 +24,9 @@ import uuid
 
 import pathlib
 
+
+
+
 # main web app entty point
 @blueprint.route('/')
 def route_default():
@@ -141,7 +144,7 @@ def settings():
         
         output_name = str(uuid.uuid1())+".jpg"
         
-        tempfile_url = str('http://'+flaskconfig['ip']+':'+flaskconfig['port']+"/static/assets/tmp/"+output_name)
+        tempfile_url = str('http://'+"192.168.5.8"+':'+"2000"+"/static/assets/tmp/"+output_name)
         
         phonenum = request.form["phone"]
         print(username)
@@ -160,7 +163,7 @@ def settings():
                  "addFace.html",
                 msg="Username already registered",
                 success=False,
-                form= face_from,
+                form= add_face,
             )
 
         # Check email exists
