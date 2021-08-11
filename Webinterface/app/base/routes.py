@@ -14,10 +14,11 @@ from flask_login import (
 
 from app import db, login_manager
 from app.base import blueprint
-from app.base.forms import LoginForm, CreateAccountForm
-from app.base.models import User
+from app.base.forms import AddFaceForm, LoginForm, CreateAccountForm
+from app.base.models import User, Face
 
 from app.base.util import verify_pass
+from configparser import ConfigParser
 
 # main web app entty point
 @blueprint.route('/')
@@ -50,6 +51,8 @@ def login():
     if not current_user.is_authenticated:
         return render_template( 'accounts/login.html',form=login_form)
     return redirect(url_for('home_blueprint.index'))
+
+
 
 
 # this is the register roure for registering users to webpage
@@ -91,6 +94,7 @@ def register():
     else:
         return render_template( 'accounts/register.html', form=create_account_form)
 
+
 # logs out user from web app
 @blueprint.route('/logout')
 def logout():
@@ -114,3 +118,65 @@ def not_found_error(error):
 @blueprint.errorhandler(500)
 def internal_error(error):
     return render_template('page-500.html'), 500
+
+
+
+  
+@blueprint.route("/addFace",methods=["GET", "POST"])
+def adduser():
+ 
+    face_from = AddFaceForm(request.form)
+    if "add" in request.form:
+       
+        # read form data
+        username = request.form["user"]
+        group = request.form["group"]
+        
+        file = request.files["files"]
+        imagename= request.files['files'].filename
+        
+        tempfile_path= str(pathlib.Path().absolute())+'/app/base/static/assets/tmp/'
+        
+        output_name = str(uuid.uuid1())+".jpg"
+        
+        tempfile_url = str('http://'+flaskconfig['ip']+':'+flaskconfig['port']+"/static/assets/tmp/"+output_name)
+        
+        phonenum = request.form["phone"]
+        print(username)
+        print(group)
+        print(imagename)
+        print(tempfile_url)
+        print(phonenum)
+        
+        # saves uploaded image to a temp file dir for sending to opencv client 
+        file.save(tempfile_path+output_name)
+
+        # Check usename exists
+        user = Face.query.filter_by(user=username).first()
+        if user:
+            return render_template(
+                 "addFace.html",
+                msg="Username already registered",
+                success=False,
+                form= face_from,
+            )
+
+        # Check email exists
+        user = Face.query.filter_by(group=group).first()
+        
+      
+        user = Face.query.filter_by(image="none")
+      
+        
+        
+        user = Face(**request.form)
+        user.image = output_name
+        user.imageurl = tempfile_url
+        user.useruuid = str(uuid.uuid1())
+        user.phonenum = phonenum
+        db.session.add(user)
+        db.session.commit()
+        ##print(image)
+
+        
+    return render_template("addFace.html",form = face_from)
