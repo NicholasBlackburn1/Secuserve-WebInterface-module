@@ -44,10 +44,11 @@ class User(db.Model, UserMixin):
         id = Column(Integer, primary_key=True)
         useruuid = Column(String, unique=True)
         user = Column(String)
-        group = Column(Integer)
-        image = Column(String, unique=True)
-        imageurl = Column(String, unique=True)
-        phoneNum = Column(String)
+        group = Column(String)
+        image = Column(String(1000),unique=True)
+        imageurl = Column(String(1000),unique=True)
+        phonenum =  Column(String(11),unique=False)
+
 
 
 @login_manager.user_loader

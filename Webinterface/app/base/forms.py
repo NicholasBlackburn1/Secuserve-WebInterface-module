@@ -6,7 +6,7 @@ Copyright (c) 2019 - present AppSeed.us
 from flask_wtf import FlaskForm
 from wtforms import TextField, PasswordField
 from wtforms.fields.core import SelectField
-from wtforms.fields.simple import FileField
+from wtforms.fields.simple import FileField, SubmitField
 from wtforms.validators import InputRequired, Email, DataRequired
 
 ## login and registration
@@ -25,6 +25,18 @@ class AddFaceForm(FlaskForm):
     phone = TextField('PhoneNumber', id='phone'   , validators=[DataRequired()])
     user = TextField('name', id='name'   , validators=[DataRequired()])
     files = FileField('files', id='files', validators=[DataRequired()] )
+    group = SelectField('group', id='drop', validators=[DataRequired()],choices=[
+            ('Admin', 'admin'),
+            ('User', 'user'),
+            ('Unwanted', 'unwanted')
+        ]
+    )
+    
+    
+    # enables removal of a database entry from the webpage
+class RemoveFaceForm(FlaskForm):
+    user = TextField('name', id='name'   , validators=[DataRequired()])
+    check = SubmitField('files', id='files', validators=[DataRequired()] )
     group = SelectField('group', id='drop', validators=[DataRequired()],choices=[
             ('Admin', 'admin'),
             ('User', 'user'),

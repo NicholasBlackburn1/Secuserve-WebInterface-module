@@ -13,12 +13,7 @@ class Config(object):
     # Set up the App SECRET_KEY
     SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_007')
 
-    # This will create a file in <app> FOLDER
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-class ProductionConfig(Config):
-    DEBUG = False
+    DEBUG = True
 
     # Security
     SESSION_COOKIE_HTTPONLY  = True
@@ -28,11 +23,30 @@ class ProductionConfig(Config):
     # PostgreSQL database
     SQLALCHEMY_DATABASE_URI = '{}://{}:{}@{}:{}/{}'.format(
         config( 'DB_ENGINE'   , default='postgresql'    ),
-        config( 'DB_USERNAME' , default='appseed'       ),
-        config( 'DB_PASS'     , default='pass'          ),
-        config( 'DB_HOST'     , default='localhost'     ),
+        config( 'DB_USERNAME' , default='1234'       ),
+        config( 'DB_PASS'     , default='1234'          ),
+        config( 'DB_HOST'     , default='192.168.5.24'     ),
         config( 'DB_PORT'     , default=5432            ),
-        config( 'DB_NAME'     , default='appseed-flask' )
+        config( 'DB_NAME'     , default='secuserve' )
+    )
+
+
+class ProductionConfig(Config):
+    DEBUG = True
+
+    # Security
+    SESSION_COOKIE_HTTPONLY  = True
+    REMEMBER_COOKIE_HTTPONLY = True
+    REMEMBER_COOKIE_DURATION = 3600
+
+    # PostgreSQL database
+    SQLALCHEMY_DATABASE_URI = '{}://{}:{}@{}:{}/{}'.format(
+        config( 'DB_ENGINE'   , default='postgresql'    ),
+        config( 'DB_USERNAME' , default='1234'       ),
+        config( 'DB_PASS'     , default='1234'          ),
+        config( 'DB_HOST'     , default='192.168.5.24'     ),
+        config( 'DB_PORT'     , default=5432            ),
+        config( 'DB_NAME'     , default='secuserve' )
     )
 
 class DebugConfig(Config):

@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 """
-Copyright (c) 2019 - present AppSeed.us
+This is where I register all the webapps routs in the app
+ TODO : add working and neet way of handling all the rounts needed for app
 """
 
 from flask import jsonify, render_template, redirect, request, url_for
@@ -18,6 +19,7 @@ from app.base.models import User
 
 from app.base.util import verify_pass
 
+# main web app entty point
 @blueprint.route('/')
 def route_default():
     return redirect(url_for('base_blueprint.login'))
@@ -40,16 +42,17 @@ def login():
         if user and verify_pass( password, user.password):
 
             login_user(user)
-            return redirect(url_for('base_blueprint.route_default'))
+            return redirect(url_for('base_blueprint.route_default',))
 
         # Something (user or pass) is not ok
         return render_template( 'accounts/login.html', msg='Wrong user or password', form=login_form)
 
     if not current_user.is_authenticated:
-        return render_template( 'accounts/login.html',
-                                form=login_form)
+        return render_template( 'accounts/login.html',form=login_form)
     return redirect(url_for('home_blueprint.index'))
 
+
+# this is the register roure for registering users to webpage
 @blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     login_form = LoginForm(request.form)
@@ -88,6 +91,7 @@ def register():
     else:
         return render_template( 'accounts/register.html', form=create_account_form)
 
+# logs out user from web app
 @blueprint.route('/logout')
 def logout():
     logout_user()
