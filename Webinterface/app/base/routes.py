@@ -132,16 +132,15 @@ def internal_error(error):
 def display():
     name = []
     image = []
+    i = 0
+    
     face=Face.query.filter_by().all()
     num = Face.query.filter_by().count()
-   
-    i = 0
-   
-    name.append(str(face[i].user))
-    image.append(str(face[i].image))
     
-        
-    return render_template("dash.html",names = name,images=image )
+   
+  
+
+    return render_template("dash.html",names = [str(face[i].user)], images = [str(face[i].image)] )
 
     
 @blueprint.route("/settings",methods=["GET", "POST"])
