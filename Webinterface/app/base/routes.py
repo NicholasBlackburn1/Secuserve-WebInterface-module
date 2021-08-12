@@ -158,13 +158,22 @@ def settings():
 
         # Check usename exists
         user = Face.query.filter_by(user=username).first()
+       
         if user:
             return render_template(
-                 "addFace.html",
+                 "set.html",
                 msg="Username already registered",
-                success=False,
-                form= add_face,
+                add = add_face,
+                remove = remove_face
+              
             )
+        if user == True:
+             return render_template(
+                 "set.html",
+                msg="addeduser",
+                add = add_face,
+                remove = remove_face)
+              
 
         # Check email exists
         user = Face.query.filter_by(group=group).first()
@@ -177,14 +186,14 @@ def settings():
         user = Face(**request.form)
         user.image = output_name
         user.imageurl = tempfile_url
-        user.useruuid = str(uuid.uuid())
+        user.useruuid = str(uuid.uuid4())
         user.phonenum = phonenum
         db.session.add(user)
         db.session.commit()
         ##print(image)
 
         
-        return render_template("set.html",remove = remove_face,add_user= add_face, msg = "addeduser" )
+        return render_template("set.html",remove = remove_face,add= add_face, msg = "addeduser" )
 
     if "Remove" in request.form:
         username = request.form['user']
@@ -197,9 +206,9 @@ def settings():
         db.session.delete(remove)
         db.session.commit()
               
-        return render_template("set.html",remove = remove_face,add_user= add_face, msg = "removedUser" )
+        return render_template("set.html",remove = remove_face,add= add_face, msg = "removedUser" )
 
     
-    return render_template("set.html",remove = remove_face,add_user= add_face,msg = "None" )
+    return render_template("set.html",remove = remove_face,add= add_face,msg = "None" )
 
   

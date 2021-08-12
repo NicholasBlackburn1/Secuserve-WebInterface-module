@@ -59,17 +59,17 @@
                               </div>
                               <form role="form" method="post" enctype= "multipart/form-data" action="">
                 
-                                {{ add_user.hidden_tag() }}  
+                                {{ add.hidden_tag() }}  
                 
                                 <div class="form-group">
                                   <label>Name</label>
-                                  {{ add_user.user(placeholder="username",class="form-control p_input") }} 
+                                  {{ add.user(placeholder="username",class="form-control p_input") }} 
                                     </ul>
                                   
                                 </div>
                                 <div class="form-group form-text">
                                   <label>User Status</label>
-                                    {{ add_user.group(placeholder="group", class="form-control p_button")}}
+                                    {{ add.group(placeholder="group", class="form-control p_button")}}
                                     
                                       </ul>
                                    
@@ -77,14 +77,14 @@
                                 </div>
                                 <div class="form-group form-text">
                                   <label>Phone Number (EU and Asia add Country code)</label>
-                                    {{ add_user.phone(placeholder="Phone Number", class="form-control p_button")}}
+                                    {{ add.phone(placeholder="Phone Number", class="form-control p_button")}}
                                     
                                       </ul>
                                   </div>
                                 <div class="form-group form-text">
                                   <label>Face Image</label>
                                   <h6>400x400 .jpg image with a soild non skin color background</h6>
-                                  {{ add_user.files(placeholder="group", class="form-control p_button") }}
+                                  {{ add.files(placeholder="group", class="form-control p_button") }}
                                     </ul>  
                                 </div>
                                 <div class="form-group d-flex align-items-center justify-content-between">
@@ -132,7 +132,7 @@
                                             <label>Name</label>
                                             form   {{ remove.user(placeholder="Name",class="form-control p_input") }} 
                                               </ul>
-                                            
+                                              add
                                           </div>
                                           <div class="form-group form-text">
                                             <label>User Status</label>

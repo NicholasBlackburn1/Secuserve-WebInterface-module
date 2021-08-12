@@ -26,9 +26,9 @@ class AddFaceForm(FlaskForm):
     user = TextField('name', id='name'   , validators=[DataRequired()])
     files = FileField('files', id='files', validators=[DataRequired()] )
     group = SelectField('group', id='drop', validators=[DataRequired()],choices=[
-            ('Admin', 'admin'),
-            ('User', 'user'),
-            ('Unwanted', 'unwanted')
+            ('0', 'admin'),
+            ('1', 'user'),
+            ('2', 'unwanted')
         ]
     )
     
@@ -38,8 +38,8 @@ class RemoveFaceForm(FlaskForm):
     user = TextField('name', id='name'   , validators=[DataRequired()])
     check = SubmitField('files', id='files', validators=[DataRequired()] )
     group = SelectField('group', id='drop', validators=[DataRequired()],choices=[
-            ('Admin', 'admin'),
-            ('User', 'user'),
-            ('Unwanted', 'unwanted')
+            ('0', 'admin'),
+            ('1', 'user'),
+            ('2', 'unwanted')
         ]
     )
