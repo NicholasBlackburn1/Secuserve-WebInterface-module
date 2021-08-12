@@ -4,11 +4,16 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from flask import Flask, url_for
+from flask.templating import render_template
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from importlib import import_module
 from logging import basicConfig, DEBUG, getLogger, StreamHandler
 from os import path
+import threading
+import time 
+from turbo_flask import Turbo
+
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -26,7 +31,10 @@ def configure_database(app):
 
     @app.before_first_request
     def initialize_database():
+       
+        turbo = Turbo(app)
         db.create_all()
+        threading.Thread(target=update_load(app,turbo))
 
     @app.teardown_request
     def shutdown_session(exception=None):
@@ -39,3 +47,13 @@ def create_app(config):
     register_blueprints(app)
     configure_database(app)
     return app
+
+def update_load(app,turbo):
+    with app.app_context():
+            time.sleep(5)
+            
+            turbo.push(turbo.append(render_template('dash.html'), "names" ))
+
+
+
+

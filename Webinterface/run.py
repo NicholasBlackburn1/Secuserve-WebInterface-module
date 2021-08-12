@@ -8,7 +8,7 @@ from os import environ
 from sys import exit
 from decouple import config
 import logging
-
+from turbo_flask import Turbo
 from config import config_dict
 from app import create_app, db
 
@@ -35,4 +35,7 @@ if DEBUG:
     app.logger.info('DBMS        = ' + app_config.SQLALCHEMY_DATABASE_URI )
 
 if __name__ == "__main__":
-    app.run(threaded = True)
+    
+    app.run(threaded = True,debug=True)
+   
+    

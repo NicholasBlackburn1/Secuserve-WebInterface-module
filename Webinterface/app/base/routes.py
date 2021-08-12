@@ -12,6 +12,8 @@ from flask_login import (
     login_user,
     logout_user
 )
+from turbo_flask import turbo
+from turbo_flask.turbo import Turbo
 
 from app import db, login_manager
 from app.base import blueprint
@@ -128,8 +130,18 @@ def internal_error(error):
 
 @blueprint.route("/dashboard",methods=["GET", "POST"])
 def display():
+    name = []
+    image = []
+    face=Face.query.filter_by().all()
+    num = Face.query.filter_by().count()
+   
+    i = 0
+   
+    name.append(str(face[i].user))
+    image.append(str(face[i].image))
     
-    return render_template("dash.html",names = ["nick","usu","nick7"],images=["e434656e-fb89-11eb-ab8d-00044beaf015.jpg"] )
+        
+    return render_template("dash.html",names = name,images=image )
 
     
 @blueprint.route("/settings",methods=["GET", "POST"])
