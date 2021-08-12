@@ -126,6 +126,12 @@ def not_found_error(error):
 def internal_error(error):
     return render_template('page-500.html'), 500
 
+@blueprint.route("/dashboard",methods=["GET", "POST"])
+def display():
+    
+    return render_template("dash.html",names = ["nick","usu","nick7"],images=["e434656e-fb89-11eb-ab8d-00044beaf015.jpg"] )
+
+    
 @blueprint.route("/settings",methods=["GET", "POST"])
 def settings():
    

@@ -125,31 +125,35 @@
                 <div class="col-12 col-lg-6 mb-4">
                     <div class="card border-light shadow-sm">
                         <div class="card-header border-bottom border-light d-flex justify-content-between">
-                            <h2 class="h5 mb-0">Team members</h2>
+                            <h2 class="h5 mb-0"> Registered Users</h2>
                             <a href="#" class="btn btn-sm btn-secondary">See all</a>
                         </div>
                         <div class="card-body">
                             <ul class="list-group list-group-flush list my--3">
+                                {% for name in names%}
+                                {% for image in images%}
                                 <li class="list-group-item px-0">
                                     <div class="row align-items-center">
                                     <div class="col-auto">
                                         <!-- Avatar -->
                                         <a href="#" class="user-avatar">
-                                            <img class="rounded-circle" alt="Image placeholder" src="/static/assets/img/team/profile-picture-1.jpg">
+                                            <img class="rounded-circle" alt="Image placeholder" src="static/assets/tmp/{{image}}">
                                         </a>
                                     </div>
                                     <div class="col-auto ms--2">
                                         <h4 class="h6 mb-0">
-                                            <a href="#!">Chris Wood</a>
-                                        </h4>
-                                        <span class="text-success">●</span>
-                                        <small>Online</small>
-                                    </div>
+                                           
+                                            <li>
+                                                <input type="hidden" name="handles[]" value="{{ name }}"/> {{ name }}
+                                            </li>
+                                       
                                     <div class="col text-right">
                                         <a href="#" class="btn btn-sm btn-tertiary"><i class="fas fa-calendar-check me-1"></i> Invite</a>
                                     </div>
                                     </div>
                                 </li>
+                                {% endfor %}
+                                {% endfor %}
                                 <li class="list-group-item px-0">
                                     <div class="row align-items-center">
                                         <div class="col-auto">
