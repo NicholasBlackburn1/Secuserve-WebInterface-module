@@ -12,6 +12,7 @@ from turbo_flask import Turbo
 from config import config_dict
 from app import create_app, db
 
+from celery import Celery
 # WARNING: Don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
@@ -37,5 +38,9 @@ if DEBUG:
 if __name__ == "__main__":
     
     app.run(threaded = True,debug=True)
-   
-    
+    app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
+    app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
+
+    celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
+    celery.conf.update(app.config)
+        

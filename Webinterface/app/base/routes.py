@@ -25,10 +25,11 @@ from configparser import ConfigParser
 import uuid
 
 import pathlib
+import app.base.const as const
 
 
 
-
+   
 # main web app entty point
 @blueprint.route('/')
 def route_default():
@@ -128,19 +129,15 @@ def not_found_error(error):
 def internal_error(error):
     return render_template('page-500.html'), 500
 
+
+
 @blueprint.route("/dashboard",methods=["GET", "POST"])
 def display():
-    name = []
-    image = []
-    i = 0
-    
-    face=Face.query.filter_by().all()
-    num = Face.query.filter_by().count()
-    
+    index = 0 
+    i = index
    
   
-
-    return render_template("dash.html",names = [str(face[i].user)], images = [str(face[i].image)] )
+    return render_template("dash.html",names = const.name, images = const.image )
 
     
 @blueprint.route("/settings",methods=["GET", "POST"])
@@ -229,3 +226,14 @@ def settings():
     return render_template("set.html",remove = remove_face,add= add_face,msg = "None" )
 
   
+
+
+def getFaceList(i):
+    
+    face=Face.query.filter_by().all()
+
+    if(i > int(Face.query.filter_by().count())):
+        const.name.append(str(face[i].user))
+        const.image.append(str(face[i].image))
+        i+=1
+        
