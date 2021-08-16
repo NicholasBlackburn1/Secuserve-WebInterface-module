@@ -3,6 +3,7 @@
 <script src="/static/assets/vendor/@popperjs/core/dist/umd/popper.min.js"></script>
 <script src="/static/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 
+
 <!-- Vendor JS -->
 <script src="/static/assets/vendor/onscreen/dist/on-screen.umd.min.js"></script>
 
@@ -13,9 +14,8 @@
 <script src="/static/assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
 
 <!-- Charts -->
-<script src="/static/assets/vendor/chartist/dist/chartist.min.js"></script>
-<script src="/static/assets/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.js" integrity="sha512-XcsV/45eM/syxTudkE8AoKK1OfxTrlFpOltc9NmHXh3HF+0ZA917G9iG6Fm7B6AzP+UeEzV8pLwnbRNPxdUpfA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- Datepicker -->
 <script src="/static/assets/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
 
@@ -39,3 +39,34 @@
 
 <!-- Volt JS -->
 <script src="/static/assets/js/volt.js"></script>
+
+
+<script type="text/javascript">  
+    
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+       datasets: [{
+           label: 'Recognized Faces',
+           data: [10, 20, 30, 40],
+           // this dataset is drawn below
+           order: 2
+       }, {
+           label: 'Unknown Faces',
+           data: [10, 10, 10, 10],
+           type: 'line',
+           // this dataset is drawn on top
+           order: 1
+       }],
+       labels: ['January', 'February', 'March', 'April']
+   },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    </script>
