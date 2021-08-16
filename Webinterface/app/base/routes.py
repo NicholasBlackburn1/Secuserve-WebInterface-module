@@ -27,6 +27,7 @@ import uuid
 import pathlib
 import app.base.const as const
 
+from celery import Celery
 
 
    
@@ -133,10 +134,13 @@ def internal_error(error):
 
 @blueprint.route("/dashboard",methods=["GET", "POST"])
 def display():
-    index = 0 
-    i = index
-   
-  
+
+    face = Face.query.filter_by().all()
+    for faces in face:
+        
+        const.name.append(str(faces.user))
+        const.image.append(str(faces.image))
+            
     return render_template("dash.html",names = const.name, images = const.image )
 
     
@@ -227,7 +231,6 @@ def settings():
 
   
 
-
 def getFaceList(i):
     
     face=Face.query.filter_by().all()
@@ -236,4 +239,5 @@ def getFaceList(i):
         const.name.append(str(face[i].user))
         const.image.append(str(face[i].image))
         i+=1
+        return '{"names":}'
         
