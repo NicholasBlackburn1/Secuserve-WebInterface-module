@@ -13,6 +13,8 @@ from config import config_dict
 from app import create_app, db
 
 from celery import Celery
+import logging
+logging.basicConfig(level=logging.DEBUG)
 # WARNING: Don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 

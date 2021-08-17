@@ -18,7 +18,7 @@ from turbo_flask.turbo import Turbo
 from app import db, login_manager
 from app.base import blueprint
 from app.base.forms import AddFaceForm, LoginForm, CreateAccountForm, RemoveFaceForm
-from app.base.models import User, Face
+from app.base.models import User, Face,SeenFaces
 
 from app.base.util import verify_pass
 from configparser import ConfigParser
@@ -31,6 +31,9 @@ from celery import Celery
 
 from datetime import datetime
 import calendar
+import logging
+
+
 # main web app entty point
 @blueprint.route('/')
 def route_default():
@@ -141,16 +144,27 @@ def display():
     month = calendar.month_name[monthnum]
     
     
-    reconized= {'monday':1,'tuesday':2,'wensday':3,'thursday':4,'friday':5,'saturday':6,'sunday':10}
-    unreconized= {'monday':10,'tuesday':20,'wensday':30,'thursday':40,'friday':50,'saturday':60,'sunday':43}
+   
 
     face = Face.query.filter_by().all()
+    user = SeenFaces.query.filter_by().all()
+    i = 0
     for faces in face:
         
         const.name.append(str(faces.user))
         const.image.append(str(faces.image))
         
-        
+
+        try:
+            if(len(user)<= 7):
+                logging.info("eeep the there arnt 7 entrys for the days "+str(len(user)))
+            
+            unreconized= {'monday':int(user[0].unreconized),'tuesday':user[1].unreconized,'wensday':user[2].unreconized,'thursday':user[3].unreconized,'friday':user[4].unreconized,'saturday':user[5].unreconized,'sunday':user[6].unreconized}
+            reconized= {'monday':int(user[0].reconized),'tuesday':user[1].reconized,'wensday':user[2].reconized,'thursday':user[3].reconized,'friday':user[4].reconized,'saturday':user[5].reconized,'sunday':user[6].reconized}
+            if(len(user) >7):
+                logging.info("greater than seven!")
+        except:
+            raise(IndexError("Cannot have empty dates"))
     
             
     return render_template("dash.html",seenreconized =reconized,seenunreconized=unreconized, week = week_number, month=month)
