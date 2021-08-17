@@ -132,13 +132,16 @@ def internal_error(error):
 
 
 #TODO: get week and days linked up for displaying and manazging the display of total users seen fo that week
+#TODO: pull from database per week entries for accuratly drawling what was seen on what weeks
 @blueprint.route("/dashboard",methods=["GET", "POST"])
 def display():
     day_of_month = datetime.now().day
     week_number = (day_of_month - 1) // 7 + 1
     monthnum= datetime.now().month
     month = calendar.month_name[monthnum]
-    reconized=  {'monday':1,'tuesday':2,'wensday':3,'thursday':4,'friday':5}
+    
+    
+    reconized=  {'monday':1,'tuesday':2,'wensday':3,'thursday':4,'friday':5,'saturday':6,'sunday':10}
     
     face = Face.query.filter_by().all()
     for faces in face:
