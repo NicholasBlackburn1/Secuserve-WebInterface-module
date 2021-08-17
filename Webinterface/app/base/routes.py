@@ -29,8 +29,8 @@ import app.base.const as const
 
 from celery import Celery
 
-
-   
+from datetime import datetime
+import calendar
 # main web app entty point
 @blueprint.route('/')
 def route_default():
@@ -134,7 +134,12 @@ def internal_error(error):
 #TODO: get week and days linked up for displaying and manazging the display of total users seen fo that week
 @blueprint.route("/dashboard",methods=["GET", "POST"])
 def display():
+    day_of_month = datetime.now().day
+    week_number = (day_of_month - 1) // 7 + 1
+    monthnum= datetime.now().month
+    month = calendar.month_name[monthnum]
     reconized=  {'monday':1,'tuesday':2,'wensday':3,'thursday':4,'friday':5}
+    
     face = Face.query.filter_by().all()
     for faces in face:
         
@@ -144,7 +149,7 @@ def display():
         
     
             
-    return render_template("dash.html",seenreconized =reconized)
+    return render_template("dash.html",seenreconized =reconized, week = week_number, month=month)
 
     
 @blueprint.route("/settings",methods=["GET", "POST"])
