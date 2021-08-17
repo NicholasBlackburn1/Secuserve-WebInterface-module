@@ -7,6 +7,7 @@
 
 <script type="text/javascript">  
     var reconized = JSON.parse('{{ seenreconized | tojson | safe}}')
+    var unreconized = JSON.parse('{{ seenunreconized | tojson | safe}}')
 
     console.error("Data from webpage"+reconized.tuesday)
     var ctx = document.getElementById('myChart');
@@ -19,7 +20,7 @@
            label: 'Recognized Faces',
            backgroundColor: ['rgb(0, 255, 0)'],
            borderColor:['rgb(0, 255, 0)'],
-           data: [reconized.monday,reconized.tuesday,reconized.wensday,reconized.thursday,reconized.friday,reconized.saterday,reconized.sunday],
+           data: [reconized.monday,reconized.tuesday,reconized.wensday,reconized.thursday,reconized.friday,reconized.saturday,reconized.sunday],
           
            // this dataset is drawn below
            order: 1
@@ -27,7 +28,8 @@
            label: 'Unknown Faces',
            backgroundColor: ['rgb(255, 0, 0)'],
            borderColor:['rgb(255, 0, 0)'],
-           data: [10,20,30,40,50,60,70],
+           data: [unreconized.monday,unreconized.tuesday,unreconized.wensday,unreconized.thursday,unreconized.friday,unreconized.saturday,unreconized.sunday],
+          
            type: 'line',
            // this dataset is drawn on top
            order: 2

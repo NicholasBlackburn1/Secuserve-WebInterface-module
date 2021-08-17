@@ -141,8 +141,9 @@ def display():
     month = calendar.month_name[monthnum]
     
     
-    reconized=  {'monday':1,'tuesday':2,'wensday':3,'thursday':4,'friday':5,'saturday':6,'sunday':10}
-    
+    reconized= {'monday':1,'tuesday':2,'wensday':3,'thursday':4,'friday':5,'saturday':6,'sunday':10}
+    unreconized= {'monday':10,'tuesday':20,'wensday':30,'thursday':40,'friday':50,'saturday':60,'sunday':43}
+
     face = Face.query.filter_by().all()
     for faces in face:
         
@@ -152,7 +153,7 @@ def display():
         
     
             
-    return render_template("dash.html",seenreconized =reconized, week = week_number, month=month)
+    return render_template("dash.html",seenreconized =reconized,seenunreconized=unreconized, week = week_number, month=month)
 
     
 @blueprint.route("/settings",methods=["GET", "POST"])
