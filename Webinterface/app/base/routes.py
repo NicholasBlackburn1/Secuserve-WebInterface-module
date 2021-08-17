@@ -154,20 +154,35 @@ def display():
         const.name.append(str(faces.user))
         const.image.append(str(faces.image))
         
+        if(len(const.name)==len(face)):
+            logging.info(const.name)
+            logging.info(const.image)
+                
+        if(len(const.name) >len(face)):
+            const.name.pop(len(const.name)-1)
+            const.image.pop(len(const.image)-1)
+            logging.info(const.name)
+            logging.info(const.image)
+            
+    for users in user:
+        const.reconized.append(users.reconized)
 
-        try:
-            if(len(user)<= 7):
-                logging.info("eeep the there arnt 7 entrys for the days "+str(len(user)))
+        if(len(const.reconized)==len(user)):
+            logging.info(const.reconized)
             
-            unreconized= {'monday':int(user[0].unreconized),'tuesday':user[1].unreconized,'wensday':user[2].unreconized,'thursday':user[3].unreconized,'friday':user[4].unreconized,'saturday':user[5].unreconized,'sunday':user[6].unreconized}
-            reconized= {'monday':int(user[0].reconized),'tuesday':user[1].reconized,'wensday':user[2].reconized,'thursday':user[3].reconized,'friday':user[4].reconized,'saturday':user[5].reconized,'sunday':user[6].reconized}
-            if(len(user) >7):
-                logging.info("greater than seven!")
-        except:
-            raise(IndexError("Cannot have empty dates"))
+                    
+        if(len(const.reconized) >len(user)):
+            const.reconized.pop(len(const.reconized)-1)
+            
+            logging.info(const.reconized)
+            
     
+       
+        #unreconized= {'monday':int(user[0].unreconized),'tuesday':user[1].unreconized,'wensday':user[2].unreconized,'thursday':user[3].unreconized,'friday':user[4].unreconized,'saturday':user[5].unreconized,'sunday':user[6].unreconized}
+        #reconized= {'monday':int(user[0].reconized),'tuesday':user[1].reconized,'wensday':user[2].reconized,'thursday':user[3].reconized,'friday':user[4].reconized,'saturday':user[5].reconized,'sunday':user[6].reconized}
+        
             
-    return render_template("dash.html",seenreconized =reconized,seenunreconized=unreconized, week = week_number, month=month)
+    return render_template("dash.html",seenreconized =1,seenunreconized=1, week = week_number, month=month,images=const.image,names=const.name)
 
     
 @blueprint.route("/settings",methods=["GET", "POST"])

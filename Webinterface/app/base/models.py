@@ -98,8 +98,7 @@ class SeenFaces(db.Model, UserMixin):
                 
             setattr(self, property, value)
 
-    def __repr__(self):
-        return str(self.username)
+   
     
 
 
