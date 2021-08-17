@@ -131,17 +131,20 @@ def internal_error(error):
     return render_template('page-500.html'), 500
 
 
-
+#TODO: get week and days linked up for displaying and manazging the display of total users seen fo that week
 @blueprint.route("/dashboard",methods=["GET", "POST"])
 def display():
-
+    reconized=  {'monday':1,'tuesday':2,'wensday':3,'thursday':4,'friday':5}
     face = Face.query.filter_by().all()
     for faces in face:
         
         const.name.append(str(faces.user))
         const.image.append(str(faces.image))
+        
+        
+    
             
-    return render_template("dash.html",names = const.name, images = const.image )
+    return render_template("dash.html",seenreconized =reconized)
 
     
 @blueprint.route("/settings",methods=["GET", "POST"])
