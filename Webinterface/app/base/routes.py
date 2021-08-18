@@ -4,6 +4,7 @@ This is where I register all the webapps routs in the app
  TODO : add working and neet way of handling all the rounts needed for app
 """
 
+from os import wait
 import pathlib
 from flask import jsonify, render_template, redirect, request, url_for
 from flask_login import (
@@ -32,7 +33,7 @@ from celery import Celery
 from datetime import datetime
 import calendar
 import logging
-
+import time 
 
 # main web app entty point
 @blueprint.route('/')
@@ -135,7 +136,7 @@ def internal_error(error):
 
 
 #TODO: get week and days linked up for displaying and manazging the display of total users seen fo that week
-#TODO: pull from database per week entries for accuratly drawling what was seen on what weeks
+#TODO: get dynmic
 @blueprint.route("/dashboard",methods=["GET", "POST"])
 def display():
     day_of_month = datetime.now().day
@@ -149,7 +150,9 @@ def display():
     face = Face.query.filter_by().all()
     user = SeenFaces.query.filter_by().all()
     i = 0
-    ind = 1
+    ind = 0
+    
+    time.sleep(.5)
     for faces in face:
         
         const.name.append(str(faces.user))
@@ -158,45 +161,42 @@ def display():
         if(len(const.name) >len(face)):
             const.name.pop(len(const.name)-1)
             const.image.pop(len(const.image)-1)
-            logging.info(const.name)
-            logging.info(const.image)
-            
+         
     for users in user:
-        const.reconized.append(users.reconized)
-        const.unreconized.append(users.unreconized)
-                    
-        # removes duped number in array
-        if(len(const.reconized) >len(user)-1):
-            const.reconized.pop(len(const.reconized)-1)
-            const.unreconized.pop(len(const.unreconized)-1)
+        const.reconized.append(user[i].reconized)
+        const.unreconized.append(user[i].unreconized)
+        i+=1
+        if(7-len(const.reconized)>0 and len(const.reconized) >len(user)-1):
             
-            logging.info(const.reconized)
-            logging.info(const.unreconized)
-            
-            logging.info("LIST IS LESS THAN 7"+" the lenth is "+str(len(const.reconized)))
-            
-           
-            logging.info("SHOULD ZERO OUT ")
-
-            for ind in range(7-len(const.reconized)):
-                const.reconized.append(0)
-                logging.info(const.reconized)
-                logging.info(const.unreconized)
-                
-                
-                
-           
-
-        #unreconized= {'monday':int(user[0].unreconized),'tuesday':user[1].unreconized,'wensday':user[2].unreconized,'thursday':user[3].unreconized,'friday':user[4].unreconized,'saturday':user[5].unreconized,'sunday':user[6].unreconized}
-        reconized= {'monday':int( const.reconized[0]),'tuesday':const.reconized[1],'wensday':const.reconized[2],'thursday':const.reconized[3],'friday':const.reconized[4],'saturday':const.reconized[5],'sunday':const.reconized[6]}
+                logging.error("UWU")
+                logging.debug(const.reconized)
+                logging.debug(const.unreconized)
+                logging.debug(7-len(const.reconized))
+                print(const.reconized[0])
+                print(const.reconized[1])
+                print(const.reconized[2])
+                print(const.reconized[3])
+                print(const.reconized[4])
+                print(const.reconized[5])
+                const.rec = {'monday':const.reconized[0],'tuesday':const.reconized[1],'wensday':const.reconized[2],'thursday':const.reconized[3],'friday':const.reconized[4],'saturday':const.reconized[5],'sunday':const.reconized[0]}
         
-            
-    return render_template("dash.html",seenreconized =reconized,seenunreconized=1, week = week_number, month=month,images=const.image,names=const.name)
+                 
+                    
+                
+        if(7-len(const.reconized)<0):
+            pass
+                
+
+           
+
+        #unreconized={'monday':const.unreconized[0],'tuesday':const.unreconized[1],'wensday':const.unreconized[2],'thursday':const.unreconized[3],'friday':const.unreconized[4],'saturday':const.unreconized[5],'sunday':const.unreconized[6]}
+        
+        
+    return render_template("dash.html",seenreconized =const.rec,seenunreconized=0, week = week_number, month=month,images=const.image,names=const.name)
 
     
 @blueprint.route("/settings",methods=["GET", "POST"])
 def settings():
-   
     remove_face= RemoveFaceForm(request.form)
     add_face =  AddFaceForm(request.form)
     if "add" in request.form:
