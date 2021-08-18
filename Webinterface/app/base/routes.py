@@ -149,15 +149,12 @@ def display():
     face = Face.query.filter_by().all()
     user = SeenFaces.query.filter_by().all()
     i = 0
+    ind = 1
     for faces in face:
         
         const.name.append(str(faces.user))
         const.image.append(str(faces.image))
         
-        if(len(const.name)==len(face)):
-            logging.info(const.name)
-            logging.info(const.image)
-                
         if(len(const.name) >len(face)):
             const.name.pop(len(const.name)-1)
             const.image.pop(len(const.image)-1)
@@ -166,23 +163,35 @@ def display():
             
     for users in user:
         const.reconized.append(users.reconized)
-
-        if(len(const.reconized)==len(user)):
-            logging.info(const.reconized)
-            
+        const.unreconized.append(users.unreconized)
                     
-        if(len(const.reconized) >len(user)):
+        # removes duped number in array
+        if(len(const.reconized) >len(user)-1):
             const.reconized.pop(len(const.reconized)-1)
+            const.unreconized.pop(len(const.unreconized)-1)
             
             logging.info(const.reconized)
+            logging.info(const.unreconized)
             
-    
-       
+            logging.info("LIST IS LESS THAN 7"+" the lenth is "+str(len(const.reconized)))
+            
+           
+            logging.info("SHOULD ZERO OUT ")
+
+            for ind in range(7-len(const.reconized)):
+                const.reconized.append(0)
+                logging.info(const.reconized)
+                logging.info(const.unreconized)
+                
+                
+                
+           
+
         #unreconized= {'monday':int(user[0].unreconized),'tuesday':user[1].unreconized,'wensday':user[2].unreconized,'thursday':user[3].unreconized,'friday':user[4].unreconized,'saturday':user[5].unreconized,'sunday':user[6].unreconized}
-        #reconized= {'monday':int(user[0].reconized),'tuesday':user[1].reconized,'wensday':user[2].reconized,'thursday':user[3].reconized,'friday':user[4].reconized,'saturday':user[5].reconized,'sunday':user[6].reconized}
+        reconized= {'monday':int( const.reconized[0]),'tuesday':const.reconized[1],'wensday':const.reconized[2],'thursday':const.reconized[3],'friday':const.reconized[4],'saturday':const.reconized[5],'sunday':const.reconized[6]}
         
             
-    return render_template("dash.html",seenreconized =1,seenunreconized=1, week = week_number, month=month,images=const.image,names=const.name)
+    return render_template("dash.html",seenreconized =reconized,seenunreconized=1, week = week_number, month=month,images=const.image,names=const.name)
 
     
 @blueprint.route("/settings",methods=["GET", "POST"])
