@@ -261,7 +261,7 @@ def settings():
         ##print(image)
 
         
-        return render_template("set.html",remove = remove_face,add= add_face, msg = "addeduser" )
+        return render_template("set.html",remove = remove_face,add= add_face, msg = "addeduser",seenreconized =0,seenunreconized=0 )
 
     if "Remove" in request.form:
         username = request.form['user']
