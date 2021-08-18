@@ -9,7 +9,6 @@
     var reconized = JSON.parse('{{ seenreconized | tojson | safe}}')
     var unreconized = JSON.parse('{{ seenunreconized | tojson | safe}}')
 
-    console.error("Data from webpage"+reconized.tuesday)
     var ctx = document.getElementById('myChart');
     var myChart = new Chart(ctx, {
         type: 'line',

@@ -168,21 +168,16 @@ def display():
         i+=1
         if(7-len(const.reconized)>0 and len(const.reconized) >len(user)-1):
             
-                logging.error("UWU")
-                logging.debug(const.reconized)
-                logging.debug(const.unreconized)
-                logging.debug(7-len(const.reconized))
-                print(const.reconized[0])
-                print(const.reconized[1])
-                print(const.reconized[2])
-                print(const.reconized[3])
-                print(const.reconized[4])
-                print(const.reconized[5])
-                const.rec = {'monday':const.reconized[0],'tuesday':const.reconized[1],'wensday':const.reconized[2],'thursday':const.reconized[3],'friday':const.reconized[4],'saturday':const.reconized[5],'sunday':const.reconized[0]}
-        
-                 
+                for i in range(7-len(const.reconized)):
+                    logging.info(const.reconized)
+                    logging.info(const.unreconized)
                     
-                
+                    const.reconized.append(0)
+                    const.unreconized.append(0)
+            
+                    const.rec = {'monday':const.reconized[0],'tuesday':const.reconized[1],'wensday':const.reconized[2],'thursday':const.reconized[3],'friday':const.reconized[4],'saturday':const.reconized[5],'sunday':const.reconized[0]}
+                    const.unrec = {'monday':const.unreconized[0],'tuesday':const.unreconized[1],'wensday':const.unreconized[2],'thursday':const.unreconized[3],'friday':const.unreconized[4],'saturday':const.unreconized[5],'sunday':const.unreconized[0]}
+            
         if(7-len(const.reconized)<0):
             pass
                 
@@ -192,7 +187,7 @@ def display():
         #unreconized={'monday':const.unreconized[0],'tuesday':const.unreconized[1],'wensday':const.unreconized[2],'thursday':const.unreconized[3],'friday':const.unreconized[4],'saturday':const.unreconized[5],'sunday':const.unreconized[6]}
         
         
-    return render_template("dash.html",seenreconized =const.rec,seenunreconized=0, week = week_number, month=month,images=const.image,names=const.name)
+    return render_template("dash.html",seenreconized =const.rec,seenunreconized=const.unrec, week = week_number, month=month,images=const.image,names=const.name)
 
     
 @blueprint.route("/settings",methods=["GET", "POST"])
