@@ -286,3 +286,29 @@ def getFaceList(i):
         i+=1
         return '{"names":}'
         
+        
+# this will allow my web server to serve images without the need of pesky loging in for simple sms sending  of captured admin images
+@blueprint.route("/admin",methods=["POST"])
+def sendAdminImage():
+    pass
+
+
+
+        
+# this will allow my web server to serve images without the need of pesky loging in for simple sms sending  of captured user images
+@blueprint.route("/user",methods=["POST"])
+def sendUserImage():
+    pass
+
+
+
+# this will allow my web server to serve images without the need of pesky loging in for simple sms sending  of captured unwanted images
+@blueprint.route("/unwanted",methods=["POST"])
+def sendUnwantedImage():
+    pass
+
+
+# this will allow my web server to serve images without the need of pesky loging in for simple sms sending  of captured unknown images
+@blueprint.route("/unknown",methods=["POST"])
+def sendUnknownImage():
+    pass

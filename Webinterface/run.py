@@ -39,7 +39,7 @@ if DEBUG:
 
 if __name__ == "__main__":
     
-    app.run(threaded = True,debug=True)
+    app.run(threaded = True,debug=True,host='192.168.5.8',port=2000)
     app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
     app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
 
