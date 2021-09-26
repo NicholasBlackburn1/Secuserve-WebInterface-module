@@ -75,6 +75,7 @@ class SeenFaces(db.Model, UserMixin):
     __tablename__ = 'SeenFaces'
 
     id = Column(Integer, primary_key=True)
+    total =  Column(Integer)
     unreconized = Column(Integer)
     reconized = Column(Integer)
     admins = Column(Integer)
@@ -82,21 +83,7 @@ class SeenFaces(db.Model, UserMixin):
     unwanted = Column(Integer)
     unknown =  Column(Integer)
     
-    
-    
-    def __init__(self, **kwargs):
-        for property, value in kwargs.items():
-            # depending on whether value is an iterable or not, we must
-            # unpack it's value (when **kwargs is request.form, some values
-            # will be a 1-element list)
-            if hasattr(value, '__iter__') and not isinstance(value, str):
-                # the ,= unpack of a singleton fails PEP8 (travis flake8 test)
-                value = value[0]
 
-            if property == 'password':
-                value = hash_pass( value ) # we need bytes here (not plain str)
-                
-            setattr(self, property, value)
 
    
     

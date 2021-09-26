@@ -165,29 +165,31 @@ def display():
     for users in user:
         const.reconized.append(user[i].reconized)
         const.unreconized.append(user[i].unreconized)
+        
         i+=1
-        if(7-len(const.reconized)>0 and len(const.reconized) >len(user)-1):
-            
+        if(7-len(const.reconized)>0 and len(const.unreconized) >len(user)-1):
+                
                 for i in range(7-len(const.reconized)):
+                    
                     logging.info(const.reconized)
                     logging.info(const.unreconized)
-                    
+                
                     const.reconized.append(0)
                     const.unreconized.append(0)
             
                     const.rec = {'monday':const.reconized[0],'tuesday':const.reconized[1],'wensday':const.reconized[2],'thursday':const.reconized[3],'friday':const.reconized[4],'saturday':const.reconized[5],'sunday':const.reconized[0]}
                     const.unrec = {'monday':const.unreconized[0],'tuesday':const.unreconized[1],'wensday':const.unreconized[2],'thursday':const.unreconized[3],'friday':const.unreconized[4],'saturday':const.unreconized[5],'sunday':const.unreconized[0]}
-            
-        if(7-len(const.reconized)<0):
-            pass
                 
-
+        if(7-len(const.reconized)<0):
+              pass
+                
+    logging.info("The month is "+" "+ str(month)+" "+" the Week Number is"+" "+str(week_number))
            
 
         #unreconized={'monday':const.unreconized[0],'tuesday':const.unreconized[1],'wensday':const.unreconized[2],'thursday':const.unreconized[3],'friday':const.unreconized[4],'saturday':const.unreconized[5],'sunday':const.unreconized[6]}
         
         
-    return render_template("dash.html",seenreconized =const.rec,seenunreconized=const.unrec, week = week_number, month=month,images=const.image,names=const.name)
+    return render_template("dash.html",seenreconized =const.rec,seenunreconized=const.unrec, week = week_number, month=month,images=const.image,names=const.name,Total=0)
 
     
 @blueprint.route("/settings",methods=["GET", "POST"])

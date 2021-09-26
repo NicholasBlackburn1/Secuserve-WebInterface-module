@@ -21,14 +21,8 @@ class Config(object):
     REMEMBER_COOKIE_DURATION = 3600
 
     # PostgreSQL database
-    SQLALCHEMY_DATABASE_URI = '{}://{}:{}@{}:{}/{}'.format(
-        config( 'DB_ENGINE'   , default='postgresql'    ),
-        config( 'DB_USERNAME' , default='1234'       ),
-        config( 'DB_PASS'     , default='1234'          ),
-        config( 'DB_HOST'     , default='192.168.5.24'     ),
-        config( 'DB_PORT'     , default=5432            ),
-        config( 'DB_NAME'     , default='secuserve' )
-    )
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite3'
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
 class ProductionConfig(Config):
