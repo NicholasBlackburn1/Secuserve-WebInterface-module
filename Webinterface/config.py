@@ -7,7 +7,7 @@ import os
 from   decouple import config
 
 class Config(object):
-
+    local = "/mnt/SecuServe/"
     basedir    = os.path.abspath(os.path.dirname(__file__))
 
     # Set up the App SECRET_KEY
@@ -19,9 +19,9 @@ class Config(object):
     SESSION_COOKIE_HTTPONLY  = True
     REMEMBER_COOKIE_HTTPONLY = True
     REMEMBER_COOKIE_DURATION = 3600
-
+    print(basedir)
     # PostgreSQL database
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite3'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///'+str(local)+'db.sqlite3'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
