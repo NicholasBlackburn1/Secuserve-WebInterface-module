@@ -7,7 +7,7 @@ import os
 from   decouple import config
 
 class Config(object):
-    local = "home/nicky/Documents/SECUSERVE/SecuServeFiles/"
+    local = "/home/nicky/Documents/SECUSERVE/SecuServeFiles/"
     
 
     # Set up the App SECRET_KEY

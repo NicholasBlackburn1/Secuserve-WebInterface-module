@@ -205,7 +205,7 @@ def settings():
         file = request.files["files"]
         imagename= request.files['files'].filename
         
-        tempfile_path= str(pathlib.Path().absolute())+'/app/base/static/assets/tmp/'
+        tempfile_path= str(pathlib.Path().absolute())+'/Webinterface/app/base/static/assets/tmp'
         
         output_name = str(uuid.uuid1())+".jpg"
         
@@ -219,7 +219,7 @@ def settings():
         print(phonenum)
         
         # saves uploaded image to a temp file dir for sending to opencv client 
-        file.save(tempfile_path+output_name)
+        file.save(str(tempfile_path)+"/"+str(output_name))
 
         # Check usename exists
         user = Face.query.filter_by(user=username).first()
