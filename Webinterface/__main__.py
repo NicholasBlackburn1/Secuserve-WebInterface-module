@@ -38,8 +38,8 @@ if DEBUG:
     app.logger.info('DBMS        = ' + app_config.SQLALCHEMY_DATABASE_URI )
 
 if __name__ == "__main__":
-    
-    app.run(threaded = True,debug=True,host='192.168.5.8',port=2000)
+    #! ip adder 192.168.5.8
+    app.run(threaded = True,debug=True,host='localhost',port=2000)
     app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
     app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
 
