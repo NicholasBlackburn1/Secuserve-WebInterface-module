@@ -209,7 +209,7 @@ def settings():
         
         output_name = str(uuid.uuid1())+".jpg"
         
-        tempfile_url = str('http://'+"localhost"+':'+"2000"+"/static/assets/tmp/"+output_name)
+        tempfile_url = str('http://'+"192.168.5.8"+':'+"2000"+"/static/assets/tmp/"+output_name)
         
         phonenum = request.form["phone"]
         print(username)
@@ -227,7 +227,7 @@ def settings():
         if user:
             return render_template(
                  "set.html",
-                msg="added",
+                msg="Username already registered",
                 add = add_face,
                 remove = remove_face
               
@@ -235,7 +235,7 @@ def settings():
         if user == True:
              return render_template(
                  "set.html",
-                msg="added",
+                msg="addeduser",
                 add = add_face,
                 remove = remove_face)
               

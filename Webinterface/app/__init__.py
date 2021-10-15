@@ -30,9 +30,9 @@ def configure_database(app):
     @app.before_first_request
     def initialize_database():
        
+    
         db.create_all()
-        db.session.commit()
-        
+      
 
     @app.teardown_request
     def shutdown_session(exception=None):
@@ -43,7 +43,7 @@ def create_app(config):
     app.config.from_object(config)
     register_extensions(app)
     register_blueprints(app)
-   
+    configure_database(app)
     return app
 
 def update_load(app,turbo):
