@@ -41,17 +41,15 @@
                         </div>
                         <div class="card-body" id = "user_list">
                             <ul class="list-group list-group-flush list my--3">
-                              
-                                {% for image in images%}
-                                {% for name in names%}
+                                
+                                {%-for faces in dict%}
 
-                               
                                 <li class="list-group-item px-0">
                                     <div class="row align-items-center">
                                     <div class="col-auto">
                                         <!-- Avatar -->
                                         <a href="#" class="user-avatar">
-                                            <img class="rounded-circle" alt="Image placeholder" src="static/assets/tmp/{{image}}">
+                                            <img class="rounded-circle" alt="Image placeholder" src="static/assets/tmp/{{faces.image}}">
                                         </a>
                                     </div>
                                 
@@ -59,7 +57,7 @@
                                         <h4 class="h6 mb-0">
                                            
                                             <li>
-                                                <input type="hidden" name="handles[]" value="{{ name }}"/> {{ name }}
+                                                <input type="hidden" name="handles[]" value="{{ name }}"/> {{faces.user}}
                                             </li>
                                        
                                     <div class="col text-right">
@@ -67,8 +65,8 @@
                                     </div>
                                     </div>
                                 </li>
-                            
-                                {% endfor %}
+                                
+                                
                                 {% endfor %}
                              
                                     </div>

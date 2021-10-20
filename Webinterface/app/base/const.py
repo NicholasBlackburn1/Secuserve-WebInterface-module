@@ -3,7 +3,7 @@
 this is const file
 """
 
-name = []
+faces = []
 image = []
 
 unreconized= []

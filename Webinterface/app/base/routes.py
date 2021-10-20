@@ -135,6 +135,8 @@ def internal_error(error):
     return render_template('page-500.html'), 500
 
 
+
+
 #TODO: get week and days linked up for displaying and manazging the display of total users seen fo that week
 #TODO: get dynmic
 @blueprint.route("/dashboard",methods=["GET", "POST"])
@@ -153,43 +155,24 @@ def display():
     ind = 0
     
     time.sleep(.5)
-    for faces in face:
+    
+    for i in range(len(user)):
+        const.rec={'monday':user[i].reconized,'tuesday':user[i].reconized,'wensday':user[i].reconized,'thursday':user[i].reconized,'friday':user[4].reconized,'saturday':user[5].reconized,'sunday':user[6].reconized}
+        const.unrec={'monday':user[i].unreconized,'tuesday':user[i].unreconized,'wensday':user[i].unreconized,'thursday':user[i].unreconized,'friday':user[4].unreconized,'saturday':user[5].unreconized,'sunday':user[6].unreconized}
         
-        const.name.append(str(faces.user))
-        const.image.append(str(faces.image))
+    for i in range(len(face)):
+        const.faces.append(face[i])
+
+        if i > (len(face)):
+            const.faces.clear()
+            i=0
         
-        if(len(const.name) >len(face)):
-            const.name.pop(len(const.name)-1)
-            const.image.pop(len(const.image)-1)
-         
-    for users in user:
-        const.reconized.append(user[i].reconized)
-        const.unreconized.append(user[i].unreconized)
         
-        i+=1
-        if(7-len(const.reconized)>0 and len(const.unreconized) >len(user)-1):
-                
-                for i in range(7-len(const.reconized)):
-                    
-                    logging.info(const.reconized)
-                    logging.info(const.unreconized)
-                
-                    const.reconized.append(0)
-                    const.unreconized.append(0)
-            
-                    const.rec = {'monday':const.reconized[0],'tuesday':const.reconized[1],'wensday':const.reconized[2],'thursday':const.reconized[3],'friday':const.reconized[4],'saturday':const.reconized[5],'sunday':const.reconized[0]}
-                    const.unrec = {'monday':const.unreconized[0],'tuesday':const.unreconized[1],'wensday':const.unreconized[2],'thursday':const.unreconized[3],'friday':const.unreconized[4],'saturday':const.unreconized[5],'sunday':const.unreconized[0]}
-                
-        if(7-len(const.reconized)<0):
-              pass
                 
     logging.info("The month is "+" "+ str(month)+" "+" the Week Number is"+" "+str(week_number))
-           
+    logging.info("controll array"+str(const.rec))     
 
-        #unreconized={'monday':const.unreconized[0],'tuesday':const.unreconized[1],'wensday':const.unreconized[2],'thursday':const.unreconized[3],'friday':const.unreconized[4],'saturday':const.unreconized[5],'sunday':const.unreconized[6]}
-        
-        
-    return render_template("dash.html",seenreconized =const.rec,seenunreconized=const.unrec, week = week_number, month=month,images=const.image,names=const.name,Total=0)
+    return render_template("dash.html",seenreconized =const.rec,seenunreconized=const.unrec, week = week_number, month=month,dict=const.faces,Total=user[0].total)
 
     
 @blueprint.route("/settings",methods=["GET", "POST"])
@@ -314,3 +297,5 @@ def sendUnwantedImage():
 @blueprint.route("/unknown",methods=["POST"])
 def sendUnknownImage():
     pass
+
+

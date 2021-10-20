@@ -46,11 +46,6 @@ def create_app(config):
    
     return app
 
-def update_load(app,turbo):
-    with app.app_context():
-            time.sleep(5)
-            
-            turbo.push(turbo.append(render_template('dash.html'), "names" ))
 
 
 
