@@ -138,7 +138,7 @@ def internal_error(error):
 
 
 #TODO: get week and days linked up for displaying and manazging the display of total users seen fo that week
-#TODO: get dynmic
+#TODO: FIX LOOPING FOR PEOPLE IN the DATABASE
 @blueprint.route("/dashboard",methods=["GET", "POST"])
 def display():
     day_of_month = datetime.now().day
@@ -157,9 +157,9 @@ def display():
     time.sleep(.5)
     
     for i in range(len(user)):
-        const.rec={'monday':user[i].reconized,'tuesday':user[i].reconized,'wensday':user[i].reconized,'thursday':user[i].reconized,'friday':user[4].reconized,'saturday':user[5].reconized,'sunday':user[6].reconized}
-        const.unrec={'monday':user[i].unreconized,'tuesday':user[i].unreconized,'wensday':user[i].unreconized,'thursday':user[i].unreconized,'friday':user[4].unreconized,'saturday':user[5].unreconized,'sunday':user[6].unreconized}
-        
+        const.rec={'monday':user[i].reconized,'tuesday':user[i].reconized,'wensday':user[i].reconized,'thursday':user[i].reconized,'friday':user[i].reconized,'saturday':user[i].reconized,'sunday':user[i].reconized}
+        const.unrec={'monday':user[i].unreconized,'tuesday':user[i].unreconized,'wensday':user[i].unreconized,'thursday':user[i].unreconized,'friday':user[i].unreconized,'saturday':user[i].unreconized,'sunday':user[i].unreconized}
+        const.seen={'monday':user[i].total,'tuesday':user[i].total,'wensday':user[i].total,'thursday':user[i].total,'friday':user[i].total,'saturday':user[i].total,'sunday':user[i].total}
     for i in range(len(face)):
         const.faces.append(face[i])
 
@@ -171,8 +171,8 @@ def display():
                 
     logging.info("The month is "+" "+ str(month)+" "+" the Week Number is"+" "+str(week_number))
     logging.info("controll array"+str(const.rec))     
-
-    return render_template("dash.html",seenreconized =const.rec,seenunreconized=const.unrec, week = week_number, month=month,dict=const.faces,Total=user[0].total)
+    i+=1
+    return render_template("dash.html",seenreconized =const.rec,seenunreconized=const.unrec, seentotal=const.seen,week = week_number, month=month,dict=const.faces,Total=user[i].total)
 
     
 @blueprint.route("/settings",methods=["GET", "POST"])

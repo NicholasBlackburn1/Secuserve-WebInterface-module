@@ -8,6 +8,7 @@
 <script type="text/javascript">  
     var reconized = JSON.parse('{{ seenreconized | tojson | safe}}')
     var unreconized = JSON.parse('{{ seenunreconized | tojson | safe}}')
+    var total = JSON.parse('{{ seentotal | tojson | safe}}')
 
     var ctx = document.getElementById('myChart');
     var myChart = new Chart(ctx, {
@@ -32,6 +33,15 @@
            type: 'line',
            // this dataset is drawn on top
            order: 2
+       },{
+           label: 'Total Faces',
+           backgroundColor: ['rgb(255, 0, 255)'],
+           borderColor:['rgb(255, 0, 255)'],
+           data: [total.monday,total.tuesday,total.wensday,total.thursday,total.friday,total.saturday,total.sunday],
+          
+           type: 'line',
+           // this dataset is drawn on top
+           order: 3
        }
     ],
        labels: ['Monday', 'Tuesday', 'Wensday', 'Thursday','Friday','Saterday','Sunday'],
