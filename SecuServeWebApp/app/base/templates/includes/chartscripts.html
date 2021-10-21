@@ -1,0 +1,58 @@
+
+<!-- Charts -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.js" integrity="sha512-XcsV/45eM/syxTudkE8AoKK1OfxTrlFpOltc9NmHXh3HF+0ZA917G9iG6Fm7B6AzP+UeEzV8pLwnbRNPxdUpfA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- Datepicker -->
+
+
+<script type="text/javascript">  
+    var reconized = JSON.parse('{{ seenreconized | tojson | safe}}')
+    var unreconized = JSON.parse('{{ seenunreconized | tojson | safe}}')
+    var total = JSON.parse('{{ seentotal | tojson | safe}}')
+
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+       datasets: [
+           
+       {
+           label: 'Recognized Faces',
+           backgroundColor: ['rgb(0, 255, 0)'],
+           borderColor:['rgb(0, 255, 0)'],
+           data: [reconized.monday,reconized.tuesday,reconized.wensday,reconized.thursday,reconized.friday,reconized.saturday,reconized.sunday],
+          
+           // this dataset is drawn below
+           order: 1
+       }, {
+           label: 'Unknown Faces',
+           backgroundColor: ['rgb(255, 0, 0)'],
+           borderColor:['rgb(255, 0, 0)'],
+           data: [unreconized.monday,unreconized.tuesday,unreconized.wensday,unreconized.thursday,unreconized.friday,unreconized.saturday,unreconized.sunday],
+          
+           type: 'line',
+           // this dataset is drawn on top
+           order: 2
+       },{
+           label: 'Total Faces',
+           backgroundColor: ['rgb(255, 0, 255)'],
+           borderColor:['rgb(255, 0, 255)'],
+           data: [total.monday,total.tuesday,total.wensday,total.thursday,total.friday,total.saturday,total.sunday],
+          
+           type: 'line',
+           // this dataset is drawn on top
+           order: 3
+       }
+    ],
+       labels: ['Monday', 'Tuesday', 'Wensday', 'Thursday','Friday','Saterday','Sunday'],
+      
+   },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    </script>
