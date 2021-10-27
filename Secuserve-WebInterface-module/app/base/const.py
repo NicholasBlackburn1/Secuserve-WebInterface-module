@@ -13,3 +13,4 @@ reconized =[]
 rec={}
 unrec={}
 seen={}
+data = []

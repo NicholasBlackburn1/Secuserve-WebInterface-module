@@ -142,6 +142,7 @@ def internal_error(error):
 #TODO: FIX LOOPING FOR PEOPLE IN the DATABASE
 @blueprint.route("/dashboard",methods=["GET", "POST"])
 def display():
+    #* allows me to get the date and the week
     day_of_month = datetime.now().day
     week_number = (day_of_month - 1) // 7 + 1
     monthnum= datetime.now().month
@@ -149,15 +150,16 @@ def display():
     
     
    
-
+    #* database entries Uwu~
     face = Face.query.filter_by().all()
     user = SeenFaces.query.filter_by().all()
+
     i = 0
     ind = 0
     
     time.sleep(.5)
     
-       
+    #* allows me to grab faces and data for the page needing to be loaded 
     for i in range(len(face)):
         const.faces.append(face[i])
 
@@ -183,11 +185,10 @@ def display():
             for index in range(len(user)):
                 print(user[index].reconized)
                 print("Day:"+str(days[index])+" "+" reconized"+" "+str(user[index].reconized))
-                data = []
+              
+                const.data.append({days[index]:user[index].reconized})
 
-                data.append((days[index],user[index].reconized))
-
-                print(data)
+                print(const.data)
                     
 
                 
@@ -195,7 +196,7 @@ def display():
 
 
         
-        print(const.rec)    
+        print(const.data)    
          
         
                 
