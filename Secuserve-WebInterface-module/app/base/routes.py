@@ -157,9 +157,6 @@ def display():
     
     time.sleep(.5)
     
-    for i in range(len(user)):
-        const.rec={'monday':user[i].reconized,'tuesday':user[i].reconized,'wensday':user[i].reconized,'thursday':user[i].reconized,'friday':user[i].reconized,'saturday':user[i].reconized,'sunday':user[i].reconized}
-        const.unrec={'monday':user[i].unreconized,'tuesday':user[i].unreconized,'wensday':user[i].unreconized,'thursday':user[i].unreconized,'friday':user[i].unreconized,'saturday':user[i].unreconized,'sunday':user[i].unreconized}
        
     for i in range(len(face)):
         const.faces.append(face[i])
@@ -167,13 +164,44 @@ def display():
         if i > (len(face)):
             const.faces.clear()
             i=0
+            
+        print(user[i].year)
+        print(user[i].month)
+        print(user[i].day)
+
+        database_week = (user[i].day -  1) // 7 + 1
+
+
+        if(monthnum == user[i].month and database_week == week_number):
+
+            ans = datetime(user[i].year, user[i].month, user[i].day)
+            print(ans.strftime("%A"))
+
+            days = ["monday","tuesday","wensday","thursday","friday","saturday","sunday"]
+            index = 0
+
+            for index in range(len(user)):
+                print(user[index].reconized)
+                print("Day:"+str(days[index])+" "+" reconized"+" "+str(user[index].reconized))
+                data = []
+
+                data.append((days[index],user[index].reconized))
+
+                print(data)
+                    
+
+                
+
+
+
         
+        print(const.rec)    
+         
         
                 
-    logging.info("The month is "+" "+ str(month)+" "+" the Week Number is"+" "+str(week_number))
-    logging.info("controll array"+str(const.rec))     
+    logging.info("The month is "+" "+ str(month)+" "+" the Week Number is"+" "+str(week_number))     
     i+=1
-    return render_template("dash.html",seenreconized =const.rec,seenunreconized=const.unrec, seentotal=const.seen,week = week_number, month=month,dict=const.faces,Total=user[i].total)
+    return render_template("dash.html",seenreconized =const.rec,seenunreconized=const.unrec, seentotal=0,week = week_number, month=month,dict=const.faces,Total=2)
 
     
 @blueprint.route("/settings",methods=["GET", "POST"])

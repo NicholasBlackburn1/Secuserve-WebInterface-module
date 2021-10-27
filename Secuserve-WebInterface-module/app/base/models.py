@@ -3,6 +3,7 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
+from datetime import date
 from flask_login import UserMixin
 from sqlalchemy import Binary, Column, Integer, String
 from sqlalchemy.sql.sqltypes import Date
@@ -76,14 +77,14 @@ class SeenFaces(db.Model, UserMixin):
     __tablename__ = 'SeenFaces'
 
     id = Column(Integer, primary_key=True)
+    year = Column(Integer)
+    month = Column(Integer)
+    day = Column(Integer)
     total =  Column(Integer)
     unreconized = Column(Integer)
     reconized = Column(Integer)
-    admins = Column(Integer)
-    users = Column(Integer)
-    unwanted = Column(Integer)
-    unknown =  Column(Integer)
-    date = Column(Date)
+
+
     
 
 
