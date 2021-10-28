@@ -196,7 +196,7 @@ def display():
 
 
         
-        print(const.data)    
+        print(const.data.)    
          
         
                 
