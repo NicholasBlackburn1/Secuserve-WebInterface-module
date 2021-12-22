@@ -3,7 +3,7 @@ this class is going to be the data class for holding and or coverting all the da
 
 '''
 
-
+from app.base import const 
 
 class DateData:
     
@@ -17,8 +17,15 @@ class DateData:
 
     #! this is were all data from database info intaked and orginized based on day
     def __init__(self, monday: int, tuseday: int, wensday: int, thursday: int, 
-    friday:int, saterday: int, sunday: int) -> list:
-       pass
+    friday:int, saterday: int, sunday: int) -> int:
+
+       self.setMonday(monday)
+       self.setTuesday(tuseday)
+       self.setWensday(wensday)
+       self.setThrusday(thursday)
+       self.setFriday(friday)
+       self.setSaterday(saterday)
+       self.setSunday(sunday)
 
     # sets mondays data
     def setMonday(self,monday) -> int:
@@ -33,7 +40,7 @@ class DateData:
             self._monday = mon
 
     #sets tusedays data
-    def setTuesday(self,tuesday):
+    def setTuesday(self,tuesday)-> int:
         tues = tuesday
 
         if tues == "" or None:
@@ -46,7 +53,7 @@ class DateData:
             self._tuesday = tues
 
     # sets wensday data
-    def setWensday(self, wensday):
+    def setWensday(self, wensday)-> int:
         wens = wensday
 
         if wens == "" or None:
@@ -61,7 +68,7 @@ class DateData:
 
 
     # ssets thrusdays sdata s
-    def setThrusday(self, thrusday):
+    def setThrusday(self, thrusday)-> int:
         thrus = thrusday
 
         if thrus == "" or None:
@@ -75,7 +82,7 @@ class DateData:
 
 
 
-    def setFriday(self, friday):
+    def setFriday(self, friday)-> int:
         thrus = friday
 
         if thrus == "" or None:
@@ -89,7 +96,7 @@ class DateData:
         
 
     
-    def setSaterday(self, saterday):
+    def setSaterday(self, saterday)-> int:
         thrus = saterday
 
         if thrus == "" or None:
@@ -102,7 +109,7 @@ class DateData:
             self._saterday = thrus
 
 
-    def setSunday(self, sunday):
+    def setSunday(self, sunday)-> int:
         thrus = sunday
 
         if thrus == "" or None:
@@ -114,29 +121,29 @@ class DateData:
         else:
             self._sunday = thrus
             
-    def getModay(self):
+    def getModay(self)-> int:
         return self._monday
 
-    def getTuesay(self):
+    def getTuesay(self)-> int:
         return self._tuesday
 
-    def getWensday(self):
+    def getWensday(self)-> int:
         return self._wensday
 
-    def getThursday(self):
+    def getThursday(self)-> int:
         return self._thurday
 
-    def getFriday(self):
+    def getFriday(self)-> int:
         return self._friday
 
-    def getSaterday(self):
+    def getSaterday(self)-> int:
         return self._saterday
 
-    def getSunday(self):
+    def getSunday(self)-> int:
         return self._sunday
 
 
-    def __repr__(self) -> list:
+    def __repr__(self):
         return {'monday':self.getModay(), 'tuesday':self.getTuesay(), 'wensday':self.getWensday(),
         'thursday':self.getThursday(),'friday':self.getFriday(),'saterday':self.getSaterday(), 'sunday':self.getSunday()}
 

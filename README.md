@@ -15,3 +15,12 @@
 **to run the module**
 
     poetry run python3 Secuserve-WebInterface-module/
+
+
+## TODO:
+
+1. get running in docker
+2. get communication over docker network 
+3. fix file structure 
+4. clean up flask web app
+

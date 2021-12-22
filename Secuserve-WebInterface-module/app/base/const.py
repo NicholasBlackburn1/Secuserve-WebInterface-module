@@ -10,7 +10,10 @@ image = []
 unreconized= []
 reconized =[]
 
-rec={}
 unrec={}
 seen={}
 data = []
+
+
+base_path = "../"
+test={}

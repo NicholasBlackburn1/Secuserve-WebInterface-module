@@ -4,7 +4,7 @@ This is where I register all the webapps routs in the app
  TODO : add working and neet way of handling all the rounts needed for app
 """
 
-from os import wait
+from os import path, wait
 import pathlib
 from flask import jsonify, render_template, redirect, request, url_for
 from flask_login import (
@@ -25,6 +25,7 @@ from app.base.util import verify_pass
 from configparser import ConfigParser
 import uuid
 
+
 import pathlib
 import app.base.const as const
 
@@ -34,7 +35,12 @@ from datetime import datetime
 import calendar
 import logging
 import time 
+import glob
+import os 
 
+
+
+from  app.base.datestruct import DateData
 # main web app entty point
 @blueprint.route('/')
 def route_default():
@@ -148,8 +154,8 @@ def display():
     monthnum= datetime.now().month
     month = calendar.month_name[monthnum]
     
-    
-   
+    rec ={}
+
     #* database entries Uwu~
     face = Face.query.filter_by().all()
     user = SeenFaces.query.filter_by().all()
@@ -167,42 +173,15 @@ def display():
             const.faces.clear()
             i=0
             
-        print(user[i].year)
-        print(user[i].month)
-        print(user[i].day)
-
-        database_week = (user[i].day -  1) // 7 + 1
-
-
-        if(monthnum == user[i].month and database_week == week_number):
-
-            ans = datetime(user[i].year, user[i].month, user[i].day)
-            print(ans.strftime("%A"))
-
-            days = ["monday","tuesday","wensday","thursday","friday","saturday","sunday"]
-            index = 0
-
-            for index in range(len(user)):
-                print(user[index].reconized)
-                print("Day:"+str(days[index])+" "+" reconized"+" "+str(user[index].reconized))
-              
-                const.data.append({days[index]:user[index].reconized})
-
-                print(const.data)
-                    
-
-                
-
-
-
+      
         
-        print(const.data.)    
-         
+     
+
         
                 
     logging.info("The month is "+" "+ str(month)+" "+" the Week Number is"+" "+str(week_number))     
     i+=1
-    return render_template("dash.html",seenreconized =const.rec,seenunreconized=const.unrec, seentotal=0,week = week_number, month=month,dict=const.faces,Total=2)
+    return render_template("dash.html",seenreconized =0,seenunreconized=0, seentotal=0,week = week_number, month=month,dict=const.faces,Total=2)
 
     
 @blueprint.route("/settings",methods=["GET", "POST"])
@@ -298,7 +277,7 @@ def sendAdminImage():
 
         
 # this will allow my web server to serve images without the need of pesky loging in for simple sms sending  of captured user images
-@blueprint.route("/user",methods=["POST"])
+@blueprint.route("/user",methods=["POST","GET"])
 def sendUserImage():
     pass
 
