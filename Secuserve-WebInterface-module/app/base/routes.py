@@ -183,7 +183,8 @@ def display():
     i+=1
     return render_template("dash.html",seenreconized =0,seenunreconized=0, seentotal=0,week = week_number, month=month,dict=const.faces,Total=2)
 
-    
+
+#! sETTINGs page 
 @blueprint.route("/settings",methods=["GET", "POST"])
 def settings():
   
@@ -191,6 +192,7 @@ def settings():
     remove_face= RemoveFaceForm(request.form)
     add_face =  AddFaceForm(request.form)
     
+    # this is for handling adding users
     if "add" in request.form:
        
         # read form data

@@ -23,4 +23,8 @@
 2. get communication over docker network 
 3. fix file structure 
 4. clean up flask web app
+5. add more than one face upload point and a action to pick to use more than one face
+6. add more downlaod urls to the database
+7. get the output captured image  to be uploaded to an endpoint used by the system
+
 
