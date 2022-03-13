@@ -4,6 +4,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from datetime import date
+from xmlrpc.client import Boolean
 from flask_login import UserMixin
 from sqlalchemy import Binary, Column, Integer, String
 from sqlalchemy.sql.sqltypes import Date
@@ -84,6 +85,18 @@ class SeenFaces(db.Model, UserMixin):
     unreconized = Column(Integer)
     reconized = Column(Integer)
 
+
+# database for zigbee
+class ZigbeeDevices(db.Model, UserMixin):
+
+    __tablename__ = 'zig'
+
+    id = Column(Integer, primary_key=True)
+    ieeenum = Column(Integer,unique=True)
+    ieeee= Column(String)
+    network= Column(Integer)
+    inited =  Column(String)
+ 
 
     
 
