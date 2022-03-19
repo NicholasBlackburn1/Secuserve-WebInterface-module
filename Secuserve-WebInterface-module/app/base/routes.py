@@ -269,7 +269,18 @@ def getFaceList(i):
         i+=1
         return '{"names":}'
         
-        
+
+@blueprint.route("/capturedfaces",methods=["GET","POST"])
+def capturedfaces():
+
+    tempfile_path= str(pathlib.Path().absolute())+'/Secuserve-WebInterface-module/app/base/static/assets/capturdimages'
+    
+    print(str(pathlib.Path().absolute()))
+
+    return render_template("seen.html")
+
+
+
 # this will allow my web server to serve images without the need of pesky loging in for simple sms sending  of captured admin images
 @blueprint.route("/admin",methods=["POST"])
 def sendAdminImage():

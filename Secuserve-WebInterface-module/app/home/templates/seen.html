@@ -1,0 +1,88 @@
+
+{% extends "layouts/dashbase.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+  
+<div class="row flex-row">
+    <div class="col col-md-8">
+        <div class="card card-body stretch-card shadow-sm mb-4">
+            <h1 class="display-4">Captured Images</h1>
+            <div class="col-12">
+                <div class="row">
+                            <div class="col-12 grid-margin stretch-card align-self-center">
+                              <div class="card">
+                                <div class="card-body ">
+                              <div class="card-body ">
+                              <h4 href="/">Captured Admin Faces </h4>
+                        
+                            <div class="mb-0 text-muted">
+                              {% if msg == "added" %}
+                                <span><h8 class= "text-success mb-0">Updated Images</h8></span>
+                              {% else %}
+                              <span><h8 class="text-danger mb-0">Please add a user's Face to the DataBase</h8></span>
+                              {% endif %} 
+                            </div>
+                            
+                            <div class="d-flex">
+                              <br />    
+                            </div>
+                           
+                          </div>
+                        </div>
+                      </div>
+                      <!-- content-wrapper ends -->
+                    </div>
+                    <!-- row ends -->
+                  </div>
+                  <br>
+              
+                          <div class="row">
+                            <div class="col  col-md-12 grid-margin stretch-card align-self-center">
+                              <div class="card">
+                                <div class="card-body ">
+                                 
+                                  <h2 class="h5 mb-0"> -> Remove User</h2>
+                                  <span class="mb-0 text-muted">
+                                    {% if msg == "removedUser" %}
+                                    <span><h8 class= "text-success mb-0">Successfully Removed User From Database</h8></span>
+                                    {% else %}
+                                    <span><h8 class="text-danger mb-0">Warning Removeing Users is Perminate!</h8></span>
+                                    {% endif %} 
+                                  </span>
+                          
+                                     
+                                    </div>
+                                  </div>
+                                 
+                                  </div>
+                      
+                                </div>
+                              </div>
+                             
+                
+                  
+                </div>
+
+              </form>
+        </div>
+        </div>
+      </div>
+    </div>
+          
+        </div>
+    </div>
+</div>
+    
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+
+{% endblock javascripts %}
