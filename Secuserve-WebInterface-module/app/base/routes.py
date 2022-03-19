@@ -6,7 +6,8 @@ This is where I register all the webapps routs in the app
 
 from os import path, wait
 import pathlib
-from flask import jsonify, render_template, redirect, request, url_for
+from urllib import response
+from flask import jsonify, render_template, redirect, request, url_for,send_from_directory,send_file
 from flask_login import (
     current_user,
     login_required,
@@ -273,18 +274,27 @@ def getFaceList(i):
 @blueprint.route("/capturedfaces",methods=["GET","POST"])
 def capturedfaces():
 
-    tempfile_path= str(pathlib.Path().absolute())+'/Secuserve-WebInterface-module/app/base/static/assets/capturdimages'
     
-    print(str(pathlib.Path().absolute()))
 
-    return render_template("seen.html")
+
+    return render_template("seen.html",adminimage='http://127.0.0.1:2000/admin',userimage='http://127.0.0.1:2000/user',unknownimage='http://127.0.0.1:2000/unknown',unwantedimage='http://127.0.0.1:2000/unwanted')
 
 
 
 # this will allow my web server to serve images without the need of pesky loging in for simple sms sending  of captured admin images
-@blueprint.route("/admin",methods=["POST"])
+@blueprint.route("/admin",methods=["POST","GET"])
 def sendAdminImage():
-    pass
+
+
+    logging.info("file stuff")
+
+    print("filedir"+str(pathlib.Path().absolute().parent)+'/SecuServeFiles/caughtImages/Admin/')
+
+    list_of_files = glob.glob(str(pathlib.Path().absolute().parent)+'/SecuServeFiles/caughtImages/Admin/*.jpg')# * means all if need specific format then *.csv
+    latest_file = max(list_of_files, key=os.path.getctime)
+
+
+    return send_file(latest_file)
 
 
 
@@ -292,19 +302,46 @@ def sendAdminImage():
 # this will allow my web server to serve images without the need of pesky loging in for simple sms sending  of captured user images
 @blueprint.route("/user",methods=["POST","GET"])
 def sendUserImage():
-    pass
+    
+    logging.info("file stuff")
+
+    print("filedir"+str(pathlib.Path().absolute().parent)+'/SecuServeFiles/caughtImages/user/')
+
+    list_of_files = glob.glob(str(pathlib.Path().absolute().parent)+'/SecuServeFiles/caughtImages/user/*.jpg')# * means all if need specific format then *.csv
+    latest_file = max(list_of_files, key=os.path.getctime)
+
+
+    return send_file(latest_file)
 
 
 
 # this will allow my web server to serve images without the need of pesky loging in for simple sms sending  of captured unwanted images
-@blueprint.route("/unwanted",methods=["POST"])
+@blueprint.route("/unwanted",methods=["POST","GET"])
 def sendUnwantedImage():
-    pass
+    
+    logging.info("file stuff")
 
+    print("filedir"+str(pathlib.Path().absolute().parent)+'/SecuServeFiles/caughtImages/unwanted/')
+
+    list_of_files = glob.glob(str(pathlib.Path().absolute().parent)+'/SecuServeFiles/caughtImages/unwanted/*.jpg')# * means all if need specific format then *.csv
+    latest_file = max(list_of_files, key=os.path.getctime)
+
+
+    return send_file(latest_file)
 
 # this will allow my web server to serve images without the need of pesky loging in for simple sms sending  of captured unknown images
-@blueprint.route("/unknown",methods=["POST"])
+@blueprint.route("/unknown",methods=["POST","GET"])
 def sendUnknownImage():
-    pass
+    
+    logging.info("file stuff")
+
+    print("filedir"+str(pathlib.Path().absolute().parent)+'/SecuServeFiles/caughtImages/unknown/')
+
+    list_of_files = glob.glob(str(pathlib.Path().absolute().parent)+'/SecuServeFiles/caughtImages/unknown/*.jpg')# * means all if need specific format then *.csv
+    latest_file = max(list_of_files, key=os.path.getctime)
+
+
+    return send_file(latest_file)
+
 
 
